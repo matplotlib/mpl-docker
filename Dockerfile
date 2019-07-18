@@ -62,7 +62,8 @@ RUN if [ ! -f "$HOME/.local/share/fonts/Humor-Sans.ttf" ]; then \
       mkdir tmp && \
       dpkg -x fonts-humor-sans_1.0-1_all.deb tmp && \
       cp tmp/usr/share/fonts/truetype/humor-sans/Humor-Sans.ttf $HOME/.local/share/fonts && \
-      rm -rf tmp; \
+      rm -rf tmp && \
+      rm -f fonts-humor-sans_1.0-1_all.deb; \
     else \
       echo "Not downloading Humor-Sans; file already exists."; \
     fi
