@@ -1,7 +1,7 @@
 FROM ubuntu:xenial
 MAINTAINER MPL developers
 
-# Install apt packages
+# Install apt packages (from https://github.com/matplotlib/matplotlib/blob/master/.circleci/config.yml)
 RUN apt-get -qq update && \
     apt-get install -y \
       inkscape \
@@ -20,21 +20,18 @@ RUN apt-get -qq update && \
       fonts-crosextra-carlito \
       fonts-freefont-otf
 
-RUN apt-get install -y wget bzip2
+# Extra utility packages used below
+RUN apt-get install -y wget bzip2 git make
 
 # Add the conda binary folder to the path
 ENV PATH /opt/conda/bin:$PATH
 
-# Install miniconda
+# Install miniconda and python
 RUN cd && \
     wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh --no-verbose && \
     bash Miniconda3-latest-Linux-x86_64.sh -b -p /opt/conda && \
     rm Miniconda*.sh
-
-ENV CONDARC_PATH /opt/conda/.condarc
-ENV CONDARC $CONDARC_PATH
 ENV PYTHONUNBUFFERED 1
-
 RUN conda install python=3.7 pip
 
 # Install MPL docs and testing dependencies
@@ -48,15 +45,15 @@ ENV HOME=/home/$USER
 WORKDIR $HOME
 USER $USER
 
-RUN mkdir -p ~/.local/share/fonts
-RUN wget -nc "https://github.com/google/fonts/blob/master/ofl/felipa/Felipa-Regular.ttf?raw=true" -O ~/.local/share/fonts/Felipa-Regular.ttf || true \
-    if [ ! -f ~/.local/share/fonts/Humor-Sans.ttf ]; then \
-      wget https://mirrors.kernel.org/ubuntu/pool/universe/f/fonts-humor-sans/fonts-humor-sans_1.0-1_all.deb \
-      mkdir tmp \
-      dpkg -x fonts-humor-sans_1.0-1_all.deb tmp \
-      cp tmp/usr/share/fonts/truetype/humor-sans/Humor-Sans.ttf ~/.local/share/fonts \
-      rm -rf tmp \
+RUN mkdir -p $HOME/.local/share/fonts
+RUN wget -nc "https://github.com/google/fonts/blob/master/ofl/felipa/Felipa-Regular.ttf?raw=true" -O "$HOME/.local/share/fonts/Felipa-Regular.ttf" || true
+RUN if [ ! -f "$HOME/.local/share/fonts/Humor-Sans.ttf" ]; then \
+      wget "https://mirrors.kernel.org/ubuntu/pool/universe/f/fonts-humor-sans/fonts-humor-sans_1.0-1_all.deb" && \
+      mkdir tmp && \
+      dpkg -x fonts-humor-sans_1.0-1_all.deb tmp && \
+      cp tmp/usr/share/fonts/truetype/humor-sans/Humor-Sans.ttf $HOME/.local/share/fonts && \
+      rm -rf tmp; \
     else \
-      echo "Not downloading Humor-Sans; file already exists." \
-    fi \
-    fc-cache -f -v
+      echo "Not downloading Humor-Sans; file already exists."; \
+    fi
+RUN fc-cache -f -v
