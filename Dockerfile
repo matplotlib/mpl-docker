@@ -20,16 +20,32 @@ RUN apt-get -qq update && \
       fonts-crosextra-carlito \
       fonts-freefont-otf
 
-# Extra utility packages used below
-RUN apt-get install -y wget bzip2 git make
+# Extra utility packages used below and interactively later
+RUN apt-get install -y \
+      wget \
+      bzip2 \
+      git \
+      make \
+      build-essential \
+      bzip2 \
+      gcc \
+      g++ \
+      libpng12-dev
+
+# Create a user, since we don't want to run as root
+ENV USER mpl
+RUN useradd -m $USER
+ENV HOME /home/$USER
+WORKDIR $HOME
+USER $USER
 
 # Add the conda binary folder to the path
-ENV PATH /opt/conda/bin:$PATH
+ENV PATH $HOME/miniconda/bin:$PATH
 
 # Install miniconda and python
 RUN cd && \
     wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh --no-verbose && \
-    bash Miniconda3-latest-Linux-x86_64.sh -b -p /opt/conda && \
+    bash Miniconda3-latest-Linux-x86_64.sh -b -p $HOME/miniconda && \
     rm Miniconda*.sh
 ENV PYTHONUNBUFFERED 1
 RUN conda install python=3.7 pip
@@ -38,13 +54,7 @@ RUN conda install python=3.7 pip
 RUN pip install -vr https://raw.githubusercontent.com/matplotlib/matplotlib/master/requirements/doc/doc-requirements.txt
 RUN pip install -vr https://raw.githubusercontent.com/matplotlib/matplotlib/master/requirements/testing/travis_all.txt
 
-# Create a user, since we don't want to run as root
-ENV USER=mpl
-RUN useradd -m $USER
-ENV HOME=/home/$USER
-WORKDIR $HOME
-USER $USER
-
+# Fonts
 RUN mkdir -p $HOME/.local/share/fonts
 RUN wget -nc "https://github.com/google/fonts/blob/master/ofl/felipa/Felipa-Regular.ttf?raw=true" -O "$HOME/.local/share/fonts/Felipa-Regular.ttf" || true
 RUN if [ ! -f "$HOME/.local/share/fonts/Humor-Sans.ttf" ]; then \
@@ -57,3 +67,4 @@ RUN if [ ! -f "$HOME/.local/share/fonts/Humor-Sans.ttf" ]; then \
       echo "Not downloading Humor-Sans; file already exists."; \
     fi
 RUN fc-cache -f -v
+ENV MPLLOCALFREETYPE 1
