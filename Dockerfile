@@ -13,6 +13,7 @@ RUN apt-get -qq update && \
       texlive-latex-extra \
       texlive-fonts-recommended \
       texlive-latex-recommended \
+      texlive-luatex \
       texlive-pictures \
       texlive-xetex \
       graphviz \
