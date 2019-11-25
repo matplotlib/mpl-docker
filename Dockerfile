@@ -30,8 +30,7 @@ RUN apt-get install -y \
       build-essential \
       bzip2 \
       gcc \
-      g++ \
-      libpng12-dev
+      g++
 
 # Create a user, since we don't want to run as root
 ENV USER mpl
