@@ -2,8 +2,8 @@ FROM ubuntu:xenial
 MAINTAINER MPL developers
 
 # Install apt packages (from https://github.com/matplotlib/matplotlib/blob/master/.circleci/config.yml)
-RUN apt-get -qq update && \
-    apt-get install -y \
+RUN apt -qq update && \
+    apt install -y \
       inkscape \
       ffmpeg \
       dvipng \
@@ -22,7 +22,7 @@ RUN apt-get -qq update && \
       fonts-freefont-otf
 
 # Extra utility packages used below and interactively later
-RUN apt-get install -y \
+RUN apt install -y \
       wget \
       bzip2 \
       git \
