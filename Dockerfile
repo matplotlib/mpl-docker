@@ -19,7 +19,8 @@ RUN apt -qq update && \
       graphviz \
       libgeos-dev \
       fonts-crosextra-carlito \
-      fonts-freefont-otf
+      fonts-freefont-otf \
+      fonts-humor-sans
 
 # Extra utility packages used below and interactively later
 RUN apt install -y \
@@ -57,15 +58,5 @@ RUN pip install -vr https://raw.githubusercontent.com/matplotlib/matplotlib/mast
 # Fonts
 RUN mkdir -p $HOME/.local/share/fonts
 RUN wget -nc "https://github.com/google/fonts/blob/master/ofl/felipa/Felipa-Regular.ttf?raw=true" -O "$HOME/.local/share/fonts/Felipa-Regular.ttf" || true
-RUN if [ ! -f "$HOME/.local/share/fonts/Humor-Sans.ttf" ]; then \
-      wget "https://mirrors.kernel.org/ubuntu/pool/universe/f/fonts-humor-sans/fonts-humor-sans_1.0-1_all.deb" && \
-      mkdir tmp && \
-      dpkg -x fonts-humor-sans_1.0-1_all.deb tmp && \
-      cp tmp/usr/share/fonts/truetype/humor-sans/Humor-Sans.ttf $HOME/.local/share/fonts && \
-      rm -rf tmp && \
-      rm -f fonts-humor-sans_1.0-1_all.deb; \
-    else \
-      echo "Not downloading Humor-Sans; file already exists."; \
-    fi
 RUN fc-cache -f -v
 ENV MPLLOCALFREETYPE 1
