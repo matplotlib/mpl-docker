@@ -48,7 +48,7 @@ RUN cd && \
     bash Miniconda3-latest-Linux-x86_64.sh -b -p $HOME/miniconda && \
     rm Miniconda*.sh
 ENV PYTHONUNBUFFERED 1
-RUN conda install python=3.7 pip
+RUN conda install -y python=3.7 pip
 
 # Install MPL docs and testing dependencies
 RUN pip install -vr https://raw.githubusercontent.com/matplotlib/matplotlib/master/requirements/doc/doc-requirements.txt
