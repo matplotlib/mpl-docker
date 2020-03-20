@@ -17,7 +17,6 @@ RUN apt -qq update && \
       texlive-pictures \
       texlive-xetex \
       graphviz \
-      libgeos-dev \
       fonts-crosextra-carlito \
       fonts-freefont-otf \
       fonts-humor-sans
