@@ -24,8 +24,9 @@ RUN apt -qq update && \
 ENV PYTHONUNBUFFERED 1
 
 # Install MPL docs and testing dependencies
-RUN pip install -vr https://raw.githubusercontent.com/matplotlib/matplotlib/master/requirements/doc/doc-requirements.txt
-RUN pip install -vr https://raw.githubusercontent.com/matplotlib/matplotlib/master/requirements/testing/travis_all.txt
+RUN pip install \
+        -r https://raw.githubusercontent.com/matplotlib/matplotlib/master/requirements/doc/doc-requirements.txt \
+        -r https://raw.githubusercontent.com/matplotlib/matplotlib/master/requirements/testing/travis_all.txt
 
 # Fonts
 RUN mkdir -p $HOME/.local/share/fonts
