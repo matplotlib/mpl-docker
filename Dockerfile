@@ -19,12 +19,13 @@ RUN apt -qq update && \
       graphviz \
       fonts-crosextra-carlito \
       fonts-freefont-otf \
-      fonts-humor-sans
+      fonts-humor-sans \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV PYTHONUNBUFFERED 1
 
 # Install MPL docs and testing dependencies
-RUN pip install \
+RUN pip install --no-cache-dir \
         -r https://raw.githubusercontent.com/matplotlib/matplotlib/master/requirements/doc/doc-requirements.txt \
         -r https://raw.githubusercontent.com/matplotlib/matplotlib/master/requirements/testing/travis_all.txt
 
