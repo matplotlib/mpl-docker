@@ -33,7 +33,6 @@ RUN pip install --no-cache-dir \
 RUN mkdir -p $HOME/.local/share/fonts
 RUN wget -nc "https://github.com/google/fonts/blob/master/ofl/felipa/Felipa-Regular.ttf?raw=true" -O "$HOME/.local/share/fonts/Felipa-Regular.ttf" || true
 RUN fc-cache -f -v
-ENV MPLLOCALFREETYPE 1
 
 # Switch back to normal shell for now.
 CMD [ "/bin/bash" ]
