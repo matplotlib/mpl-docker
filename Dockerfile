@@ -28,7 +28,8 @@ ENV PYTHONUNBUFFERED 1
 # Install MPL docs and testing dependencies
 RUN pip install --no-cache-dir \
         -r https://raw.githubusercontent.com/matplotlib/matplotlib/master/requirements/doc/doc-requirements.txt \
-        -r https://raw.githubusercontent.com/matplotlib/matplotlib/master/requirements/testing/travis_all.txt
+        -r https://raw.githubusercontent.com/matplotlib/matplotlib/master/requirements/testing/travis_all.txt \
+        cycler kiwisolver numpy pillow pyparsing python-dateutil
 
 # Fonts
 RUN mkdir -p $HOME/.local/share/fonts
