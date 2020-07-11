@@ -1,5 +1,5 @@
-ARG BASE=3.8
-FROM python:$BASE
+ARG BUILDER_IMAGE=python:3.8
+FROM ${BUILDER_IMAGE} as builder
 MAINTAINER MPL developers
 
 # Install apt packages (from https://github.com/matplotlib/matplotlib/blob/master/.circleci/config.yml)
