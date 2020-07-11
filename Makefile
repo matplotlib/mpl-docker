@@ -8,4 +8,7 @@ image:
 	--tag matplotlib/mpl-docker:debug-latest
 
 run:
-	docker run --rm -it matplotlib/mpl-docker:debug-latest
+	docker run --rm -it \
+	-v $(shell pwd):/mpl_source \
+	-w /mpl_source \
+	matplotlib/mpl-docker:debug-latest
