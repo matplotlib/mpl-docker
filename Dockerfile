@@ -1,4 +1,5 @@
-FROM python:3.7
+ARG BASE=3.8
+FROM python:$BASE
 MAINTAINER MPL developers
 
 # Install apt packages (from https://github.com/matplotlib/matplotlib/blob/master/.circleci/config.yml)
