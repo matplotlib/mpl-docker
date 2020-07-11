@@ -2,6 +2,6 @@
 
 ### Usage:
 ```
-docker pull mrakitin/mpl-docker:latest
-docker run --rm -it mrakitin/mpl-docker:latest bash
+docker pull matplotlib/mpl-docker:latest
+docker run --rm -it matplotlib/mpl-docker:latest bash
 ```
