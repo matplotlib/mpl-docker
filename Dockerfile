@@ -4,22 +4,23 @@ MAINTAINER MPL developers
 # Install apt packages (from https://github.com/matplotlib/matplotlib/blob/master/.circleci/config.yml)
 RUN apt -qq update && \
     apt install -y \
-      inkscape \
-      ffmpeg \
-      dvipng \
-      lmodern \
       cm-super \
+      dvipng \
+      ffmpeg \
+      fonts-crosextra-carlito \
+      fonts-freefont-otf \
+      fonts-humor-sans \
+      graphviz \
+      inkscape\
+      lmodern \
+      optipng\
+      texlive-fonts-recommended \
       texlive-latex-base \
       texlive-latex-extra \
-      texlive-fonts-recommended \
       texlive-latex-recommended \
       texlive-luatex \
       texlive-pictures \
       texlive-xetex \
-      graphviz \
-      fonts-crosextra-carlito \
-      fonts-freefont-otf \
-      fonts-humor-sans \
     && rm -rf /var/lib/apt/lists/*
 
 ENV PYTHONUNBUFFERED 1
