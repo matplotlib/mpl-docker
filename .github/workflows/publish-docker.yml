@@ -6,6 +6,9 @@ on:
     - master
     tags:
     - v*
+  # Run weekly (Sunday) at 0:01 UTC
+  schedule:
+  - cron:  '1 0 * * 0'
 
 jobs:
   build-and-publish:
