@@ -1,4 +1,5 @@
-FROM python:3.7
+ARG BUILDER_IMAGE=python:3.8-slim
+FROM ${BUILDER_IMAGE} as builder
 MAINTAINER MPL developers
 
 # Install apt packages (from https://github.com/matplotlib/matplotlib/blob/master/.circleci/config.yml)
