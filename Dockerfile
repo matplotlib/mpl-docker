@@ -1,10 +1,10 @@
 ARG BUILDER_IMAGE=python:3.8
 FROM ${BUILDER_IMAGE} as builder
-MAINTAINER MPL developers
 
-# Install apt packages (from https://github.com/matplotlib/matplotlib/blob/master/.circleci/config.yml)
-RUN apt -qq update && \
-    apt install -y \
+# Install apt-get packages (from https://github.com/matplotlib/matplotlib/blob/master/.circleci/config.yml)
+# hadolint ignore=DL3008
+RUN apt-get -qq update && \
+    apt-get install --no-install-recommends -y \
       cm-super \
       dvipng \
       ffmpeg \
@@ -22,7 +22,7 @@ RUN apt -qq update && \
       texlive-luatex \
       texlive-pictures \
       texlive-xetex \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt-get/lists/*
 
 ENV PYTHONUNBUFFERED 1
 
@@ -33,9 +33,9 @@ RUN pip install --no-cache-dir \
         cycler kiwisolver numpy pillow pyparsing python-dateutil
 
 # Fonts
-RUN mkdir -p $HOME/.local/share/fonts
-RUN wget -nc "https://github.com/google/fonts/blob/master/ofl/felipa/Felipa-Regular.ttf?raw=true" -O "$HOME/.local/share/fonts/Felipa-Regular.ttf" || true
-RUN fc-cache -f -v
+RUN mkdir -p "$HOME/.local/share/fonts" && \
+    wget -nc "https://github.com/google/fonts/blob/master/ofl/felipa/Felipa-Regular.ttf?raw=true" -O "$HOME/.local/share/fonts/Felipa-Regular.ttf" || true && \
+    fc-cache -f -v
 
 # Switch back to normal shell for now.
 CMD [ "/bin/bash" ]
