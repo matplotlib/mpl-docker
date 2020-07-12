@@ -9,6 +9,7 @@ on:
   # Run weekly (Sunday) at 0:01 UTC
   schedule:
   - cron:  '1 0 * * 0'
+  workflow_dispatch:
 
 jobs:
   build-and-publish:
