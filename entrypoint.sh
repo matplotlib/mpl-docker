@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 git clone https://github.com/matplotlib/matplotlib
 pip install -ve ./matplotlib
