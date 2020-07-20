@@ -1,8 +1,6 @@
 #!/bin/bash
 
 git clone https://github.com/matplotlib/matplotlib
-cd matplotlib/
-pip install -ve .
-cd doc/
-make html
-python -m http.server -d build/html/
+pip install -ve ./matplotlib
+make -C matplotlib/doc html
+python -m http.server -d matplotlib/doc/build/html/
