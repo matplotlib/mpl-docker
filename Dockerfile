@@ -22,7 +22,7 @@ RUN apt-get -qq update && \
       texlive-luatex \
       texlive-pictures \
       texlive-xetex \
-    && rm -rf /var/lib/apt-get/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
 ENV PYTHONUNBUFFERED 1
 
