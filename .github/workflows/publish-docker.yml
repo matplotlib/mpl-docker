@@ -1,0 +1,39 @@
+name: Publish Docker Images
+
+on:
+  push:
+    branches:
+    - master
+    tags:
+    - v*
+  # Run weekly (Sunday) at 0:01 UTC
+  schedule:
+  - cron:  '1 0 * * 0'
+  workflow_dispatch:
+
+jobs:
+  build-and-publish:
+    name: Build and publish Docker images to Docker Hub
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build and Publish to Registry
+      if: "!(startsWith(github.ref, 'refs/tags/'))"
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        repository: matplotlib/mpl-docker
+        dockerfile: Dockerfile
+        tags: latest
+    - name: Build and Publish to Registry with Release Tag
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        repository: matplotlib/mpl-docker
+        dockerfile: Dockerfile
+        tags: latest,latest-stable
+        tag_with_ref: true
