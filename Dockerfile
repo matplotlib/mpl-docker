@@ -1,5 +1,5 @@
-ARG BUILDER_IMAGE=python:3.8
-FROM ${BUILDER_IMAGE} as builder
+ARG BASE_IMAGE=python:3.8
+FROM ${BASE_IMAGE} as base
 
 # Install apt-get packages (from https://github.com/matplotlib/matplotlib/blob/master/.circleci/config.yml)
 # hadolint ignore=DL3008
